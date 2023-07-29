@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  client:
+    build: ./client
+    stdin_open: true
+    tty: true
+    # command: npm run dev
+    environment:
+      VITE_BACKEND_URL: http://localhost:8080
+      # VITE_BACKEND_WEBSOCKET_URL: ws://localhost:8080
+    volumes:
+      - ./client:/app
+    ports:
+      - 5173:5173
+volumes:
+  mysql_data:
