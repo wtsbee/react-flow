@@ -5,10 +5,7 @@ services:
     build: ./client
     stdin_open: true
     tty: true
-    # command: npm run dev
-    environment:
-      VITE_BACKEND_URL: http://localhost:8080
-      # VITE_BACKEND_WEBSOCKET_URL: ws://localhost:8080
+    command: npm run dev
     volumes:
       - ./client:/app
     ports:
