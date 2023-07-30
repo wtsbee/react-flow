@@ -53,6 +53,12 @@ function Flow() {
     [setEdges]
   );
 
+  const onNodeDragStop = useCallback((event: MouseEvent, node: Node) => {
+    // ドロップされたノードの情報を取得
+    console.log("Dropped MouseEvent:", event);
+    console.log("Dropped Node:", node);
+  }, []);
+
   return (
     <div style={{ height: "100vh" }}>
       <ReactFlow
@@ -60,6 +66,7 @@ function Flow() {
         edges={edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
+        onNodeDragStop={onNodeDragStop}
         onConnect={onConnect}
         fitView
       >
