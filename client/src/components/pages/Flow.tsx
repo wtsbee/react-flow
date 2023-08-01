@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -10,54 +10,62 @@ import ReactFlow, {
   Connection,
 } from "reactflow";
 import "reactflow/dist/style.css";
+import { useQueryNodes } from "@/hooks/useQueryNodes";
 
-interface NodeData {
-  label: string;
-}
+// interface NodeData {
+//   label: string;
+// }
 
-interface CustomNode extends Node {
-  data: NodeData;
-}
+// interface CustomNode extends Node {
+//   data: NodeData;
+// }
 
-const initialNodes: CustomNode[] = [
-  {
-    id: "start",
-    type: "input",
-    position: { x: 0, y: 0 },
-    data: { label: "start" },
-  },
-  {
-    id: "middle",
-    position: { x: 0, y: 100 },
-    data: { label: "middle" },
-  },
-  {
-    id: "end",
-    type: "output",
-    position: { x: 0, y: 200 },
-    data: { label: "end" },
-  },
-];
+// const initialNodes: CustomNode[] = [
+//   {
+//     id: "start",
+//     type: "input",
+//     position: { x: 0, y: 0 },
+//     data: { label: "start" },
+//   },
+//   {
+//     id: "middle",
+//     type: "",
+//     position: { x: 0, y: 100 },
+//     data: { label: "middle" },
+//   },
+//   {
+//     id: "end",
+//     type: "output",
+//     position: { x: 0, y: 200 },
+//     data: { label: "end" },
+//   },
+// ];
 
 const initialEdges = [
-  { id: "e1", source: "start", target: "middle" },
-  { id: "e2", source: "middle", target: "end" },
+  { id: "e1", source: "1", target: "2" },
+  { id: "e2", source: "2", target: "3" },
 ];
 
 function Flow() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const { data: allNodes } = useQueryNodes();
 
   const onConnect = useCallback(
     (connection: Connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
   );
 
-  const onNodeDragStop = useCallback((event: MouseEvent, node: Node) => {
+  const onNodeDragStop = useCallback((_: MouseEvent, node: Node) => {
     // ドロップされたノードの情報を取得
-    console.log("Dropped MouseEvent:", event);
     console.log("Dropped Node:", node);
   }, []);
+
+  useEffect(() => {
+    if (allNodes != undefined) {
+      setNodes(allNodes.data);
+    }
+  }, [allNodes]);
 
   return (
     <div style={{ height: "100vh" }}>

@@ -6,6 +6,8 @@ services:
     stdin_open: true
     tty: true
     command: npm run dev
+    environment:
+      VITE_BACKEND_URL: http://localhost:8080
     volumes:
       - ./client:/app
     ports:
