@@ -41,14 +41,14 @@ import { useQueryNodes } from "@/hooks/useQueryNodes";
 //   },
 // ];
 
-const initialEdges = [
-  { id: "e1", source: "1", target: "2" },
-  { id: "e2", source: "2", target: "3" },
-];
+// const initialEdges = [
+//   { id: "e1", source: "1", target: "1" },
+//   { id: "e2", source: "2", target: "3" },
+// ];
 
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const { data: allNodes } = useQueryNodes();
 
   const onConnect = useCallback(
@@ -63,7 +63,8 @@ function Flow() {
 
   useEffect(() => {
     if (allNodes != undefined) {
-      setNodes(allNodes.data);
+      setNodes(allNodes.data["node"]);
+      setEdges(allNodes.data["edge"]);
     }
   }, [allNodes]);
 
