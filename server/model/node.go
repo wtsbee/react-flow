@@ -15,11 +15,16 @@ type Node struct {
 	UpdatedAt time.Time `json:"updated_at"`
 }
 
-type NodeResponse struct {
+type NodeDetail struct {
 	ID       string          `json:"id"`
 	Type     string          `json:"type"`
 	Position PositionDetails `json:"position"`
 	Data     DataDetails     `json:"data"`
+}
+
+type NodeAndEdgeResponse struct {
+	Node []NodeDetail `json:"node"`
+	Edge []EdgeDetail `json:"edge"`
 }
 
 type PositionDetails struct {

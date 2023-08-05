@@ -6,22 +6,27 @@ import (
 )
 
 type INodeUsecase interface {
-	GetAllNodes() ([]model.Node, error)
+	GetAllNodes() ([]model.Node, []model.Edge, error)
 }
 
 type nodeUsecase struct {
 	nr repository.INodeRepository
+	er repository.IEdgeRepository
 }
 
 // コンストラクタ
-func NewNodeUsecase(nr repository.INodeRepository) INodeUsecase {
-	return &nodeUsecase{nr}
+func NewNodeUsecase(nr repository.INodeRepository, er repository.IEdgeRepository) INodeUsecase {
+	return &nodeUsecase{nr, er}
 }
 
-func (nu *nodeUsecase) GetAllNodes() ([]model.Node, error) {
+func (nu *nodeUsecase) GetAllNodes() ([]model.Node, []model.Edge, error) {
 	var nodes []model.Node
 	if err := nu.nr.GetAllNodes(&nodes); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return nodes, nil
+	var edges []model.Edge
+	if err := nu.er.GetAllEdges(&edges); err != nil {
+		return nil, nil, err
+	}
+	return nodes, edges, nil
 }

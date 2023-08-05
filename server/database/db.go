@@ -41,5 +41,5 @@ func CloseDB(db *gorm.DB) {
 }
 
 func Migrate(db *gorm.DB) {
-	db.AutoMigrate(&model.Node{})
+	db.AutoMigrate(&model.Node{}, &model.Edge{})
 }
