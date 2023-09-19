@@ -1,0 +1,2 @@
+INSERT INTO edges (id, source_id, target_id) VALUES (1, 1, 2), (2, 2, 3), (3, 3, 4);
+INSERT INTO nodes (id, type, x, y, label) VALUES (1, "input", 0, 0, "start"), (2, null, 0, 100, "middle"), (3, "end", 0, 200, "end");
