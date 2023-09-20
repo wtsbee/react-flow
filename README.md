@@ -32,8 +32,6 @@ $ go run main.go
 
 `server/sql`ディレクトリ配下の`sample-data.sql`ファイルの SQL を実行する
 
-`
-
 ### client のコンテナ内での作業
 
 以下のコマンドを実行します。
